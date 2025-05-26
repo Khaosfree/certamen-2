@@ -64,32 +64,27 @@ function promedio(){
 
 function modificarTabla(index) {
 
-    // Obtener nuevos datos del formulario
+    
     const name = document.getElementById("name").value.trim();
     const lastName = document.getElementById("lastName").value.trim();
     const grade = parseFloat(document.getElementById("grade").value);
     const fecha = document.getElementById("fecha").value.trim();
 
-    // Validación básica
     if (!name || !lastName || isNaN(grade) || grade < 1 || grade > 7 || !fecha) {
         alert("Error al modificar datos");
         return;
     }
 
-    // Actualizar el objeto en el array
+
     students[index] = { name, lastName, grade, fecha };
 
-    // Limpiar y volver a generar toda la tabla
     tableBody.innerHTML = "";
     students.forEach(addStudentToTable);
 
-    // Volver a mostrar botón "Guardar Alumno"
     document.getElementById("save_dinamic").innerHTML = `<button type="submit" id="save_">Guardar Alumno</button>`;
 
-    // Limpiar el formulario
     document.getElementById("studentForm").reset();
 
-    // Recalcular promedio
     avg_prom();
 }
 
@@ -103,4 +98,36 @@ function modificar(student){
 
     document.getElementById("save_dinamic").innerHTML = `<input type="button" class="save-action" onclick="modificarTabla(${index})" value="Modificar Alumno">`;
 
+}
+function actualizarEstadisticas() {
+    const total = students.length;
+    const aprobados = students.filter(s => s.grade >= 4).length;
+    const reprobados = total - aprobados;
+
+    document.getElementById("totalStudents").textContent = total;
+    document.getElementById("passedStudents").textContent = aprobados;
+    document.getElementById("failedStudents").textContent = reprobados;
+}
+
+function promedio(){
+    if(students.length === 0){
+        avarageDiv.textContent = "Promedio General del Curso: N/A";
+        actualizarEstadisticas(); 
+        return;  
+    }
+    const total = students.reduce((sum, student) => sum + student.grade, 0);
+    const prom = total / students.length;
+    avarageDiv.textContent = "Promedio General del Curso: " + prom.toFixed(2);
+
+    actualizarEstadisticas();
+}
+
+function actualizarEstadisticas() {
+    const total = students.length;
+    const aprobados = students.filter(s => s.grade >= 4).length;
+    const reprobados = total - aprobados;
+
+    document.getElementById("totalStudents").textContent = total;
+    document.getElementById("passedStudents").textContent = aprobados;
+    document.getElementById("failedStudents").textContent = reprobados;
 }

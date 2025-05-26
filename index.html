@@ -10,7 +10,7 @@
     <main class="container">
         <h2>Seguimiento de Calificaciones de Estudiantes</h2>
         <div id="avarage">Promedio General del Curso: N/A</div>
-        
+       
 
     <form id="studentForm">
         <div>
@@ -30,6 +30,11 @@
             <input type="number" id="grade" step="0.1" min="1" max="7" required oninvalid="this.setCustomValidity('Ingresa una Nota')" oninput="this.setCustomValidity('')">
         </div>
         <div id="save_dinamic"><button type="submit" id="save_">Guardar Alumno</button></div>
+        <div id="statistics">
+            <p>Total de estudiantes: <span id="totalStudents">0</span></p>
+            <p>Aprobados: <span id="passedStudents">0</span></p>
+            <p>Reprobados: <span id="failedStudents">0</span></p>
+          </div>
     </form>
 
     <table id="studentsTable" border="1" cellpadding="8" cellspacing="0">
